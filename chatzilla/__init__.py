@@ -38,8 +38,8 @@ Classes:
     - `ChatOllama`: Initialize a chat with local ollama instance.
         - Parameters: `ollama_url`, `model`
         - Methods:
-            - `begin(content, role, json_output)`: Start a chat with a llm starting with the prompt initialized with class
-            - `next(content, json_output)`: Continue the chat with a llm while including chat history
+            - `begin(content, role, json_output)`: Start a chat with a large language model (llm) with a given prompt
+            - `next(content, json_output)`: Continue the chat with the same llm, while including chat history
             - `history()`: Return the current chat history as a list
 
 Functions:
@@ -52,7 +52,7 @@ import requests
 from requests.exceptions import ConnectionError, Timeout, RequestException
 from json import dumps
 from typing import List, Dict, Literal, Union, Optional
-from logger import logger_init
+from .logger import logger_init
 
 logger = logger_init()
 
@@ -143,7 +143,7 @@ def PromptOllama(prompt:str, model:str, ollama_url:str, json_output:bool=False) 
 
 class ChatOllama:
     """
-    Initialize a chat with local ollama instance.
+    Initialize a chat with a local ollama instance.
 
     Parameters
     ---
@@ -152,6 +152,15 @@ class ChatOllama:
 
     model : str, default='llama3.1'
         select model installed with ollama
+
+    Methods
+    ---
+    - begin
+        Start a chat with a large language model (llm) with a given prompt
+
+    - next
+        Continue the chat with the same llm, while including chat history
+
         
     """
     def __init__(self, ollama_url:str, model:str="llama3.1"):
@@ -161,7 +170,7 @@ class ChatOllama:
 
     def begin(self, content:str, role:str="user", json_output:bool=False) -> str | Dict[str, Union[str, int, float, bool, Dict[str, str]]]:
         """
-        Start a chat with a llm starting with the prompt initialized with class
+        Start a chat with a large language model (llm) with given a prompt
 
         Parameters
         ---
@@ -231,7 +240,7 @@ class ChatOllama:
     
     def next(self, content:str, json_output:bool=False) -> str | Dict[str, Union[str, int, float, bool]]:
         """
-        Continue the chat with a llm while including chat history
+        Continue the chat with the same llm, while including chat history
 
         Parameters
         ---

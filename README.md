@@ -4,9 +4,12 @@ Query local ollama instance to ask questions about documents
 
 <!-- ![overview](docs/imgs/<image>.png) -->
 
-You can also jump into `chat.py` to extend an ongoing conversation.
+Checkout the `demo.ipynb` jupyter notebook to get a quick demo on the capabilties of this library.
 
-chatzilla folder is the package developed as described below.
+## Take a Gander
+
+- Jump into `demo/chat.py` to extend an ongoing conversation.
+- chatzilla folder is the package developed as shown below.
 
 ## Features 
 

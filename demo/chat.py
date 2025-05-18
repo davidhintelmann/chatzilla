@@ -1,5 +1,8 @@
+import sys
 import os
 from dotenv import load_dotenv
+# Add the parent directory (llama-docx) to the path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from chatzilla import ChatOllama
 from chatzilla.logger import logger_init, save_history_to_json
 
