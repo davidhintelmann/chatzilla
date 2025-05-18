@@ -1,0 +1,5 @@
+__pycache__/
+results/
+.env
+explore.ipynb
+tst.py
