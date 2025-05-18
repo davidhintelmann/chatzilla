@@ -1,4 +1,4 @@
-# LLaMify + chatzilla
+# chatzilla
 
 Query local ollama instance to explore the world of open source large language models.
 Provides a simple and intuitive way to send prompts, start conversations, 
