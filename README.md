@@ -6,10 +6,9 @@ and retrieve chat histories.
 
 <!-- ![overview](docs/imgs/<image>.png) -->
 
-Checkout the `demo.ipynb` jupyter notebook to get a quick demo on the capabilties of this library.
-
 ## Take a Gander
 
+- Checkout `demo/demo.ipynb` jupyter notebook to get a quick demo on the capabilties of this library.
 - Jump into `demo/chat.py` to extend an ongoing conversation.
 - chatzilla folder is the package developed as shown below.
 
