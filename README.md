@@ -1,6 +1,8 @@
 # LLaMify + chatzilla
 
-Query local ollama instance to ask questions about documents
+Query local ollama instance to explore the world of open source large language models.
+Provides a simple and intuitive way to send prompts, start conversations, 
+and retrieve chat histories.
 
 <!-- ![overview](docs/imgs/<image>.png) -->
 
