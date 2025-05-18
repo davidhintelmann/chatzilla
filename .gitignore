@@ -1,5 +1,8 @@
+# ignore local pycache, results folder for json output, env file
 __pycache__/
 results/
 .env
+
+# ignore jupyter notebook and python for local development
 explore.ipynb
 tst.py
