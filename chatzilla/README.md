@@ -15,7 +15,7 @@ and retrieve chat histories.
         - `history()`: Return the current chat history as a list
 
 ## Functions
-  - `PromptOllama(prompt, model, ollama_url, json_output)`
+  - `PromptOllama(prompt, model, ollama_url, format, json_output)`
           Send a single prompt to ollama without any history
-  - `zillaping(ollama_url, model, role)`
+  - `zillaping(ollama_url)`
           Ping local instance of ollama to see if the sever is running

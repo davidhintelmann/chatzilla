@@ -23,12 +23,12 @@ Usage:
     See below for examples:
 
     >>> from chatzilla import PromptOllama
-    >>> response = PromptOllama("What do you call a fake noodle?", "llama3.1")
+    >>> response = PromptOllama("What do you call a fake noodle?", "llama3.1", "http://localhost:11434/api/generate")
     >>> print(response)  # prints "An impasta!"
 
     >>> from chatzilla import ChatOllama
-    >>> chat = ChatOllama("Hello!", "llama3.1")
-    >>> response = chat.begin()
+    >>> chat = ChatOllama("http://localhost:11434/api/generate", "llama3.1")
+    >>> response = chat.begin("Hello!")
     >>> print(response)  # prints "How are you today?"
 
     >>> next_response = chat.next("I'm good, thanks!")
@@ -45,7 +45,7 @@ Classes:
 Functions:
     - `PromptOllama(prompt, model, ollama_url, format, json_output)`
             Send a single prompt to ollama without any history
-    - `zillaping(ollama_url, model, role)`
+    - `zillaping(ollama_url)`
             Ping local instance of ollama to see if the sever is running
 """
 import requests
