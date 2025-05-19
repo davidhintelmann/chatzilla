@@ -43,14 +43,14 @@ Classes:
             - `history()`: Return the current chat history as a list
 
 Functions:
-    - `PromptOllama(prompt, model, ollama_url, json_output)`
+    - `PromptOllama(prompt, model, ollama_url, format, json_output)`
             Send a single prompt to ollama without any history
     - `zillaping(ollama_url, model, role)`
             Ping local instance of ollama to see if the sever is running
 """
 import requests
 from requests.exceptions import ConnectionError, Timeout, RequestException
-from json import dumps
+from pydantic import BaseModel
 from typing import List, Dict, Literal, Union, Optional
 from .logger import logger_init
 
@@ -87,7 +87,7 @@ def zillaping(ollama_url:str) -> Optional[str]:
         logger.error(f"RequestException error occurred while requesting {ollama_url}: {e}")
         return None
 
-def PromptOllama(prompt:str, model:str, ollama_url:str, json_output:bool=False) -> str | Dict[str, Union[str, int, float, bool]]:
+def PromptOllama(prompt:str, model:str, ollama_url:str, format:None|Dict|BaseModel=None,json_output:bool=False) -> str | Dict[str, Union[str, int, float, bool]]:
     """
     Send a single prompt to ollama without any history
     
@@ -97,6 +97,8 @@ def PromptOllama(prompt:str, model:str, ollama_url:str, json_output:bool=False) 
         user input for prompt (Q&A, summarize, etc.)
     model: str
         model installed with local instance of ollama (e.g., 'llama3.1')
+    format : None | Dict | BaseModel, default=None
+        response format expected to be returned by ollama response
     ollama_url: str
         API endpoint for local instance of ollama (e.g., 'http://localhost:11434/api/generate')
     json_output: bool
@@ -130,12 +132,22 @@ def PromptOllama(prompt:str, model:str, ollama_url:str, json_output:bool=False) 
     ```
     """
     h = {"Content-Type":"application/json"}
-    d = {
-        "model":model,
-        "prompt":prompt,
-        "stream":False
-    }
-    response = requests.post(ollama_url, headers=h, data=dumps(d))
+
+    if not format:
+        d = {
+            "model":model,
+            "prompt":prompt,
+            "stream":False
+        }
+    else:
+        d = {
+            "model":model,
+            "prompt":prompt,
+            "stream":False,
+            "format":format
+        }
+
+    response = requests.post(ollama_url, headers=h, json=d)
     if not json_output:
         return response.json()['response']
     else:
@@ -228,7 +240,7 @@ class ChatOllama:
 
         self.chat_history.append({"role": role, "content": content})
 
-        response_json = requests.post(self.url, headers=h, data=dumps(d)).json()
+        response_json = requests.post(self.url, headers=h, json=d).json()
         response_text = response_json['message']['content']
 
         self.chat_history.append({"role": "assistant", "content": response_text})
@@ -281,7 +293,7 @@ class ChatOllama:
             "messages": self.chat_history,
             "stream":False
         }
-        response_json = requests.post(self.url, headers=h, data=dumps(d)).json()
+        response_json = requests.post(self.url, headers=h, json=d).json()
         response_text = response_json['message']['content']
         self.chat_history.append({"role": "assistant", "content": response_text})
         if not json_output:
