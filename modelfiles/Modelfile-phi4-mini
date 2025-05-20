@@ -1,0 +1,15 @@
+FROM C:\Users\david\.ollama\models\blobs\sha256-3c168af1dea0a414299c7d9077e100ac763370e5a98b3c53801a958a47f0a5db
+TEMPLATE """{{- if or .System .Tools }}<|system|>{{ if .System }}{{ .System }}{{ end }}
+{{- if .Tools }}{{ if not .System }}You are a helpful assistant with some tools.{{ end }}<|tool|>{{- range .Tools }} {{ .Function }} {{ end }}<|/tool|><|end|>
+{{- end }}
+{{- end }}
+{{- range $i, $_ := .Messages }}
+{{- $last := eq (len (slice $.Messages $i)) 1 -}}
+{{- if ne .Role "system" }}<|{{ .Role }}|>{{ .Content }}
+{{- if .ToolCalls }}<|tool_call|>[{{ range .ToolCalls }}{"name":"{{ .Function.Name }}","arguments":{{ .Function.Arguments }}}{{ end }}]<|/tool_call|>
+{{- end }}
+{{- if not $last }}<|end|>
+{{- end }}
+{{- if and (ne .Role "assistant") $last }}<|end|><|assistant|>{{ end }}
+{{- end }}
+{{- end }}"""
