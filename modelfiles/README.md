@@ -21,15 +21,15 @@ This adjustment ensures that the model can handle function calls appropriately
 
 Before building your custom model you will need to find where it is stored on your computer. 
 On my windows computer these are found in the `C:\user\.ollama\models\blobs` directory. 
-Reference the model of interest (i.e. installed on your computer) in the `Modelfile_phi4-mini` file by updating the first line.
+Reference the model of interest (i.e. installed on your computer) in the `Modelfile-phi4-mini` file by updating the first line.
 
 > [!IMPORTANT]
-> Update the first line in `Modelfile_phi4-mini` with your sha256 hash
+> Update the first line in `Modelfile-phi4-mini` with your sha256 hash
 
-Run the following command (with `Modelfile_phi4-mini` file in the same directory) to build a new model with your updated template:
+Run the following command (with `Modelfile-phi4-mini` file in the same directory) to build a new model with your updated template:
 
 ```bash
-ollama create phi4-mini-fncall -f Modelfile_phi4-mini
+ollama create phi4-mini-fncall -f Modelfile-phi4-mini
 ```
 
 ### Run Your New Model
